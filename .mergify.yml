@@ -1,22 +1,12 @@
 queue_rules:
   - name: default
     merge_conditions:
-      - check-success=ci
-    conditions: []
+      - "#approved-reviews-by >= 0"
 
 pull_request_rules:
-  - name: queue PRs on label
+  - name: auto-queue
     conditions:
       - base=main
-      - label=queue
     actions:
       queue:
         name: default
-
-  - name: auto-merge
-    conditions:
-      - base=main
-      - label=auto-merge
-    actions:
-      merge:
-        method: squash
