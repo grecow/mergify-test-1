@@ -1,13 +1,22 @@
+queue_rules:
+  - name: default
+    merge_conditions:
+      - check-success=ci
+    conditions: []
+
 pull_request_rules:
-  - name: automatic merge
+  - name: queue PRs on label
+    conditions:
+      - base=main
+      - label=queue
+    actions:
+      queue:
+        name: default
+
+  - name: auto-merge
     conditions:
       - base=main
       - label=auto-merge
     actions:
       merge:
         method: squash
-
-queue_rules:
-  - name: default
-    conditions:
-      - check-success=ci
